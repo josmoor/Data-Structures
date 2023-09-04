@@ -4,4 +4,4 @@ clean:
 	rm run
 	rm select.o
 run:
-	./run
+	./select.o
