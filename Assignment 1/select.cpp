@@ -38,8 +38,8 @@ void SelectionSort(int A[], int length) {
         for(int j = i + 1; j < length; j++) {
             if(A[j] < A[i]) {
                 int temp = A[i];
-		A[i] = A[j];
-		A[j] = temp;
+		        A[i] = A[j];
+		        A[j] = temp;
             }
         }
     }
