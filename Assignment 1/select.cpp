@@ -1,42 +1,54 @@
 #include <iostream>
+using namespace std;
+
+void SelectionSort(int A[], int);
+
+int A[30]; 
 
 int main() {
-    std::string temp = "";
-    int A[30] = {-1000};
+    int value;
+    int length = 0;
     bool complete = false;
 
-    for(int i = 0; complete != true, i < 30; i++) {
-        std::cout << "Enter a number (-1000 to stop): ";
-        std::cin >> A[i];
+    for(int i = 0; complete != true && i < 30; i++) {
+        cout << "Enter a number (-1000 to stop): ";
+        cin >> value;
+	A[i] = value;
+
+	if(A[i] == -1000) {
+	    complete = true;
+	}
+
+	length++;
     }
 
-    SelectionSort(A);
-
-    std::string display = "";
-
-    for(int i = 0; i < sizeof(A), A[i] != -1000; i++) {
-        display = display.append(A[i] + ",");
-    }
-
-    std::cout << display;
+    SelectionSort(A, length - 1);
 
     return 0;
 }
 
-void SelectionSort(int A[]) {
-    for(int i = 0; i < sizeof(A), A[i] != -1000; i++) {
-        int index = i;
-
-        for(int j = i + 1; j < sizeof(A), A[j] != -1000; j++) {
+void SelectionSort(int A[], int length) {
+    cout << "Current Array: ";
+    for(int i = 0; i < length; i++) {
+	cout << A[i] << ",";
+    }
+    cout << endl;
+    
+    for(int i = 0; i < length; i++) {
+        for(int j = i + 1; j < length; j++) {
             if(A[j] < A[i]) {
-                index = j;
+                int temp = A[i];
+		A[i] = A[j];
+		A[j] = temp;
             }
         }
-
-        if(index != i) {
-            int temp = A[i];
-            A[i] = A[index];
-            A[index] = temp;
-        }
     }
+
+    cout << "Sorted Array: ";
+
+    for(int i = 0; i < length; i++) {
+        cout << A[i] << ",";
+    }
+
+    cout << endl;
 }
