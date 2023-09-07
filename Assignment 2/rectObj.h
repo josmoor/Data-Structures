@@ -8,7 +8,6 @@ class Rectangle {
         float angle[2]; // Min - Max
 
     public:
-
         void setDistance(float x, float y) {
             dis[0] = x;
             dis[1] = y;
