@@ -17,7 +17,9 @@ int main() {
 
     ofstream outFile;
     outFile.open("rectData.txt");
-    
+    outFile << numRect;
+    outFile.flush();
+    outFile.close();
 
     return 0;
 }
