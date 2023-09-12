@@ -1,30 +1,41 @@
 #include <math.h>
 #include <rectObj.h>
+#include <stdlib.h>
+#include <time.h>
+#DEFINE PI 3.1415926536
 
 class Circle {
+    Circle(float center[2], float radius) {
+        pos[0] = center[0];
+        pos[1] = center[1];
+        this->radius = radius;
+    }
+
     private:
         float pos[2];
         float radius;
 
     public:
-        bool isInCircle(float pos[2], bool top) {
-            if(top) { // If other circle is above
-                for(int i = 0; i < 180; i++) {
-                    float tempPos[2];
-                    tempPos[0] = this->pos[0] + (radius * sin(i));
-                    tempPos[1] = this->pos[1] + (radius * cos(i));
-
-                    if(tempPos[0] == pos[0] && tempPos[1] == pos[1])
-                        return true;
+        bool isInCircle(float pos[2], float radius) {
+            if(this->pos[1] > pos[1]) { // This circle on top
+                if(this->pos[0] > pos[0]) { // This circle right
+                    if(this->pos[0] - this->radius < pos[0] + radius &&
+                        this->pos[1] - this->radius < pos[1] + radius)
+                            return true;
+                } else { // Other circle right
+                    if(this->pos[0] + this-> radius < pos[0] - radius &&
+                        this->pos[1] - this->radius < pos[1] + radius)
+                            return true;
                 }
-            } else {
-                for(int i = 180; i < 360; i++) {
-                    float tempPos[2];
-                    tempPos[0] = this->pos[0] + (radius * sin(i));
-                    tempPos[1] = this->pos[1] +  (radius * cos(i));
-
-                    if(tempPos[0] == pos[0] && tempPos[1] == pos[1])
-                        return true;
+            } else { // Other circle on top
+                if(this->pos[0] > pos[0]) { // This circle right
+                    if(this->pos[0] - this->radius < pos[0] + radius &&
+                        this->pos[1] + this->radius < pos[1] + radius)
+                            return true;
+                } else { // Other circle right
+                    if(this->pos[0] + this-> radius < pos[0] - radius &&
+                        this->pos[1] + this->radius < pos[1] + radius)
+                            return true;
                 }
             }
 
@@ -44,19 +55,37 @@ class Circle {
         float getX() { return pos[0]; }
         float getY() { return pos[1]; }
 
+        int getAngle() {
+            int ret = rand() % 179 + 1;
+
+            while(ret == 90)
+                ret = rand() % 179 + 1;
+
+            return ret;
+        }
+
+        float[] setPoints(int p1Angle, int p2Angle) {
+            float[8] ret;
+
+            for(int i = 0; i < 8; i++) {
+                ret[i] = pos[i % 2] + (radius * ((i % 2 == 0 ? cos((i < 2 ? p1Angle : p2Angle)) : sin(i < 2 ? p1Angle : p2Angle)) * (i < 4 ? 1 : 180 / PI) * (pos[i % 2] > 0 ? 1 : -1));
+            }
+
+            // ret[0] = pos[0] + radius * (cos(p1Angle) * 180 / PI);
+            // ret[1] = pos[1] + radius * (sin(p1Angle) * 180 / PI);
+            // ret[2] = pos[0] + radius * (cos(p2Angle) * 180 / PI);
+            // ret[3] = pos[1] + radius * (sin(p2Angle) * 180 / PI);
+            // ret[4] = pos[0] + radius * (cos(p2Angle + 180) * 180 / PI);
+            // ret[5] = pos[1] + radius * (sin(p2Angle + 180) * 180 / PI);
+            // ret[6] = pos[0] + radius * (cos(p1Angle + 180) * 180 / PI);
+            // ret[7] = pos[1] + radius * (sin(p1Angle + 180) * 180 / PI);
+
+            return ret;
+        }
+
         Rectangle getRect() {
-            Rectangle rect;
+            srand(time(NULL));
 
-            //TODO: Get random point on circle.
-            //Q2angle = (90 - angle) + 90
-            //Q3angle = 180 + angle
-            //Q4angle = 360 - angle
-            //TODO: get points on circle
-            //TODO: get random length (max of circle point)
-            //TODO: get obscure angle of origin
-
-            //TODO: store in rect
-
-            return rect;
+            return new Rectangle(pos,setPoints(getAngle(), getAngle())); //{float[2]}, {float[8]}
         }
 };
