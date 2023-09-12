@@ -70,7 +70,7 @@ class Circle {
             float[8] ret;
 
             for(int i = 0; i < 8; i++) {
-                ret[i] = pos[i % 2] + (radius * ((i % 2 == 0 ? cos((i < 2 ? p1Angle : p2Angle)) : sin(i < 2 ? p1Angle : p2Angle)) * (i < 4 ? 1 : 180 / PI) * (pos[i % 2] > 0 ? 1 : -1));
+                ret[i] = pos[i % 2] + (radius * ((i % 2 == 0 ? cos((i < 2 || i > 5 ? p1Angle : p2Angle)) : sin(i < 2 || i > 5 ? p1Angle : p2Angle)) * (i < 4 ? 1 : 180 / PI) * (pos[i % 2] > 0 ? 1 : -1));
             }
 
             // ret[0] = pos[0] + radius * (cos(p1Angle) * 180 / PI);
