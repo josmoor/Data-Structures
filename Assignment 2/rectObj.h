@@ -24,7 +24,7 @@ class Rectangle {
             int p2Angle = getAngle();
 
             for(int i = 0; i < 8; i++) {
-                points[i] = pos[i % 2] + (radius * ((i % 2 == 0 ? cos((i < 2 || i > 5 ? p1Angle : p2Angle)) : sin(i < 2 || i > 5 ? p1Angle : p2Angle)) * (i < 4 ? 1 : 180 / PI) * (pos[i % 2] > 0 ? 1 : -1)));
+                points[i] = pos[i % 2] + (radius * ((i % 2 == 0 ? cos((i < 2 || i > 5 ? (i > 5 ? p1Angle + 180 : p1Angle) : (i > 3 ? p2Angle + 180 : p2Angle))) : sin(i < 2 || i > 5 ? (i > 5 ? p1Angle + 180 : p1Angle) : (i > 3 ? p2Angle + 180 : p2Angle))) * (i < 4 ? 1 : 180 / PI) * (pos[i % 2] > 0 ? 1 : -1)));
             }
 
             // ret[0] = pos[0] + radius * (cos(p1Angle) * 180 / PI);
