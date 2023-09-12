@@ -42,13 +42,13 @@ void writeData() {
     outputFile.open("rectData.txt");
 
     for (int i = 0; i < numRect; i++) {
-        outputFile << rects[i].getCenterX() + ","
-            << rects[i].getCenterY() + ","
+        outputFile << rects[i].getX() + ","
+            << rects[i].getY() + ","
             << rects[i].getPointX() + ","
             << rects[i].getPointY() + ","
             << rects[i].getLength() + ","
             << rects[i].getWidth() + ","
-            << rects[i].getMinAngleObscure() + ","
+            << rects[i].getAngle() + ","
             << rects[i].getMaxAngleObscure()
             << endl;
     }
