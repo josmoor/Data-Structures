@@ -14,6 +14,7 @@ class Circle {
     private:
         float pos[2];
         float radius;
+        float dis;  
 
     public:
         bool isInCircle(float pos[2], float radius) {
@@ -54,6 +55,7 @@ class Circle {
         float getRadius() { return radius; }
         float getX() { return pos[0]; }
         float getY() { return pos[1]; }
+        float getDistance() { return dis; }
 
         int getAngle() {
             int ret = rand() % 179 + 1;
