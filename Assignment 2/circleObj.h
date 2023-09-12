@@ -2,7 +2,7 @@
 #include <rectObj.h>
 #include <stdlib.h>
 #include <time.h>
-#DEFINE PI 3.1415926536
+#define PI 3.1415926536
 
 class Circle {
     Circle(float center[2], float radius) {
@@ -14,7 +14,7 @@ class Circle {
     private:
         float pos[2];
         float radius;
-        float dis;  
+        float dis;
 
     public:
         bool isInCircle(float pos[2], float radius) {
@@ -56,38 +56,4 @@ class Circle {
         float getX() { return pos[0]; }
         float getY() { return pos[1]; }
         float getDistance() { return dis; }
-
-        int getAngle() {
-            int ret = rand() % 179 + 1;
-
-            while(ret == 90)
-                ret = rand() % 179 + 1;
-
-            return ret;
-        }
-
-        float[] setPoints(int p1Angle, int p2Angle) {
-            float[8] ret;
-
-            for(int i = 0; i < 8; i++) {
-                ret[i] = pos[i % 2] + (radius * ((i % 2 == 0 ? cos((i < 2 || i > 5 ? p1Angle : p2Angle)) : sin(i < 2 || i > 5 ? p1Angle : p2Angle)) * (i < 4 ? 1 : 180 / PI) * (pos[i % 2] > 0 ? 1 : -1));
-            }
-
-            // ret[0] = pos[0] + radius * (cos(p1Angle) * 180 / PI);
-            // ret[1] = pos[1] + radius * (sin(p1Angle) * 180 / PI);
-            // ret[2] = pos[0] + radius * (cos(p2Angle) * 180 / PI);
-            // ret[3] = pos[1] + radius * (sin(p2Angle) * 180 / PI);
-            // ret[4] = pos[0] + radius * (cos(p2Angle + 180) * 180 / PI);
-            // ret[5] = pos[1] + radius * (sin(p2Angle + 180) * 180 / PI);
-            // ret[6] = pos[0] + radius * (cos(p1Angle + 180) * 180 / PI);
-            // ret[7] = pos[1] + radius * (sin(p1Angle + 180) * 180 / PI);
-
-            return ret;
-        }
-
-        Rectangle getRect() {
-            srand(time(NULL));
-
-            return new Rectangle(pos,setPoints(getAngle(), getAngle())); //{float[2]}, {float[8]}
-        }
 };
