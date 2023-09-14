@@ -1,5 +1,5 @@
 #include <math.h>
-#include <rectObj.h>
+#include "rectObj.h"
 #include <stdlib.h>
 #include <time.h>
 #define PI 3.1415926536
