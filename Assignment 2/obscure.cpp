@@ -3,6 +3,7 @@
 #include <fstream>
 #include <rectObj.h>
 #include <circleObj.h>
+#include <vector>
 
 using namespace std;
 
@@ -11,20 +12,20 @@ void generateCircles(int);
 
 // Variables
 int numRect;
-Rectangle rects[];
-Circle circles[];
+vector<Circle> circles;
+vector<Rectangle> rects;
 
 int main() {
     cout << "Enter number of rectangles: ";
     cin >> numRect;
 
-    circles = new Circle[numRect];
-    rects = new Rectangle[numRect];
+    circles.resize(numRect);
+    rects.resize(numRect);
 
     generateCircles(numRect);
 
     for(int i = 0; i < numRect; i++) {
-        rects[i] = circles[i].getRect();
+        rects.at(i) = * new Rectangle(circles[i].getX(), circles[i].getY(), circles[i].getRadius());
     }
 
     writeData();
@@ -42,14 +43,18 @@ void writeData() {
     outputFile.open("rectData.txt");
 
     for (int i = 0; i < numRect; i++) {
-        outputFile << rects[i].getX() + ","
-            << rects[i].getY() + ","
-            << rects[i].getPointX() + ","
-            << rects[i].getPointY() + ","
-            << rects[i].getLength() + ","
-            << rects[i].getWidth() + ","
-            << rects[i].getAngle() + ","
-            << rects[i].getMaxAngleObscure()
+        outputFile << rects.at(i).getCenterX() << ","
+            << rects.at(i).getCenterY() << ","
+            << rects.at(i).getPointX(0) << ","
+            << rects.at(i).getPointY(0) << ","
+            << rects.at(i).getPointX(1) << ","
+            << rects.at(i).getPointY(1) << ","
+            << rects.at(i).getPointX(2) << ","
+            << rects.at(i).getPointY(2) << ","
+            << rects.at(i).getPointX(3) << ","
+            << rects.at(i).getPointY(3) << ","
+            << rects.at(i).getMinAngle() << ","
+            << rects.at(i).getMaxAngle() << ","
             << endl;
     }
 
@@ -57,7 +62,7 @@ void writeData() {
     outputFile.close();
 
     outputFile.open("angleObscureTotal.txt");
-    outputFile << /*Angle Amount*/;
+    outputFile << "VALUE" /*Angle Amount*/;
     outputFile.flush();
     outputFile.close();
 }
@@ -71,9 +76,19 @@ void writeData() {
 void generateCircles(int amount) {
     for(int i = 0; i < amount; i++) {
         bool isOverlap = true;
+        float points[2] = {rand() % 10 + 1,rand() % 10 + 1};
+
+        circles.at(i) = * new Circle(points, rand() % 15 + 1);
 
         while(isOverlap) {
-            //TODO: If overlapping a circle, redefine distance.
+            if(!circles.at(i).isInCircle({1.1,1.1}, 1))
+                isOverlap = false;
+            else {
+                points[0] = rand() % 10 + 1;
+                points[1] = rand() % 10 + 1;
+
+                circles.at(i).setPosition(points);
+            }
         }
     }
 }
