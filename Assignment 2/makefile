@@ -5,7 +5,7 @@ circleObj.o: circleObj.h rectObj.o
 rectObj.o: rectObj.h
 	g++ rectObj.h -o rectObj.o
 clean:
-	rm *.txt
 	rm *.o
+	rm *.txt
 run:
 	./obscure
