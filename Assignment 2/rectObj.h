@@ -41,6 +41,11 @@ class Rectangle {
         }
 
     public:
+        Rectangle() {
+            dis[0] = 5.5;
+            dis[1] = 7.7;
+        }
+
         Rectangle(float centerPointX, float centerPointY, float radius) {
             dis[0] = centerPointX;
             dis[1] = centerPointY;

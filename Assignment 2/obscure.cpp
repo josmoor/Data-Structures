@@ -9,6 +9,7 @@ using namespace std;
 
 // Functions
 void generateCircles(int);
+void writeData();
 
 // Variables
 int numRect;

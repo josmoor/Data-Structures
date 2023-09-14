@@ -14,6 +14,12 @@ class Circle {
         float dis;
 
     public:
+        Circle() {
+            pos[0] = 5.5;
+            pos[1] = 7.7;
+            radius = 9.9;
+        }
+
         Circle(float center[2], float radius) {
             pos[0] = center[0];
             pos[1] = center[1];
