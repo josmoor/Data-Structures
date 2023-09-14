@@ -25,7 +25,7 @@ int main() {
     generateCircles(numRect);
 
     for(int i = 0; i < numRect; i++) {
-        rects.at(i) = new Rectangle(circles[i].getX(), circles[i].getY(), circles[i].getRadius());
+        rects.at(i) = * new Rectangle(circles[i].getX(), circles[i].getY(), circles[i].getRadius());
     }
 
     writeData();
@@ -78,10 +78,13 @@ void generateCircles(int amount) {
         bool isOverlap = true;
         float points[2] = {rand() % 10 + 1,rand() % 10 + 1};
 
-        circles.at(i) = new Circle(points, rand() % 15 + 1);
+        circles.at(i) = * new Circle(points, rand() % 15 + 1);
+
+        points[0] = rand() % 10 + 1;
+        points[1] = rand() % 10 + 1;
 
         while(isOverlap) {
-            if(!circles.at(i).isInCircle({1.1,1.1}, 1))
+            if(!circles.at(i).isInCircle(points, 1))
                 isOverlap = false;
             else {
                 points[0] = rand() % 10 + 1;
