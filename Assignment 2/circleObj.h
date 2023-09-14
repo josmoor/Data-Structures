@@ -5,18 +5,18 @@
 #define PI 3.1415926536
 
 class Circle {
-    Circle(float center[2], float radius) {
-        pos[0] = center[0];
-        pos[1] = center[1];
-        this->radius = radius;
-    }
-
     private:
         float pos[2];
         float radius;
         float dis;
 
     public:
+        Circle(float center[2], float radius) {
+            pos[0] = center[0];
+            pos[1] = center[1];
+            this->radius = radius;
+        }
+
         bool isInCircle(float pos[2], float radius) {
             if(this->pos[1] > pos[1]) { // This circle on top
                 if(this->pos[0] > pos[0]) { // This circle right
@@ -44,8 +44,8 @@ class Circle {
         }
 
         void setPosition(float newPos[2]) {
-            pos[0] = newPos[0];
-            pos[1] = newPos[1];
+            pos[0] += newPos[0];
+            pos[1] += newPos[1];
         }
 
         void setRadius(float radi) {
