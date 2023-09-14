@@ -1,3 +1,7 @@
+#ifndef CIRCLE_H
+#define CIRCLE_H
+#endif
+
 #include <math.h>
 #include "rectObj.h"
 #include <stdlib.h>
