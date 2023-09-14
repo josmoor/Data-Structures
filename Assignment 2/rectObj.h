@@ -43,6 +43,7 @@ class Rectangle {
             dis[1] = centerPointY;
 
             setPoints(radius);
+            calcAngle(radius);
         }
 
         void calcAngle(float radius) {
