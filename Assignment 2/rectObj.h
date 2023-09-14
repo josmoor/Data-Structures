@@ -66,4 +66,4 @@ class Rectangle {
         float getPointY(int point) { return pos[point * 2] + 1; }
         float getMinAngle() { return angle[0]; }
         float getMaxAngle() { return angle[1]; }
-}
+};
