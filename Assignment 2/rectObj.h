@@ -1,6 +1,5 @@
 #ifndef RECT_H
 #define RECT_H
-#endif
 
 #include <iostream>
 #include <math.h>
@@ -71,3 +70,5 @@ class Rectangle {
         float getMinAngle() { return angle[0]; }
         float getMaxAngle() { return angle[1]; }
 };
+
+#endif

@@ -1,6 +1,5 @@
 #ifndef CIRCLE_H
 #define CIRCLE_H
-#endif
 
 #include <math.h>
 #include "rectObj.h"
@@ -61,3 +60,5 @@ class Circle {
         float getY() { return pos[1]; }
         float getDistance() { return dis; }
 };
+
+#endif
