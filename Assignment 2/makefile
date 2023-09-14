@@ -1,7 +1,9 @@
 create: obscure.cpp circleObj.o rectObj.o
-	g++ circleObj.h -o circleObj.o
-	g++ rectObj.h -o rectObj.o
 	g++ obscure.cpp -o obscure
+circleObj.o: circleObj.h rectObj.o
+	g++ -c circleObj.h
+rectObj.o: rectObj.h
+	g++ -c rectObj.h
 clean:
 	rm obscure
 	rm rectObj.o
