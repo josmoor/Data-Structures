@@ -6,6 +6,7 @@ rectObj.o: rectObj.h
 	g++ -c rectObj.h
 clean:
 	rm obscure
+	rm text.txt
 	rm rectObj.o
 	rm circleObj.o
 	rm rectData.txt
