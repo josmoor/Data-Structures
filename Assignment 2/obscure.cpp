@@ -1,3 +1,10 @@
+#ifndef rectObj.h
+#define rectObj.h
+#endif
+#ifndef circleObj.h
+#define circleObj.h
+#endif
+
 #include <iostream>
 #include <stdio.h>
 #include <fstream>
