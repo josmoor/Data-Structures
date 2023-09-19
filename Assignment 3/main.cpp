@@ -74,6 +74,8 @@ void placeQueens(bool moveQueen) {
             full.push_back(empty.top());
             empty.pop();
 
+            std::cout << "size: " << empty.size() << std::endl;
+
             pos.pop_back(); // Need to call twice (remove column/row int values)
             pos.pop_back();
 
