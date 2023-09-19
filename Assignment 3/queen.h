@@ -1,6 +1,7 @@
 #ifndef QUEEN_H
 #define QUEEN_H
 #include <math.h>
+using namespace Vars;
 
 /**
 Type: Class
@@ -55,7 +56,7 @@ class Queen {
         */
         void increaseCol() {
             pos[1] += 1;
-            if(pos[1] >= Vars::size)
+            if(pos[1] >= size)
                 pos[1] = 1;
         }
 
