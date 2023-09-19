@@ -148,4 +148,5 @@ void getQueens() {
         full.push_back(*new Queen(i + 1));
 
     empty = *new std::stack<Queen>();
+    pos = *new std::vector<int>();
 }
