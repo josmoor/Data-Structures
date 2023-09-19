@@ -4,16 +4,18 @@
 #include <fstream>
 #include <stack>
 #include <vector>
-using namespace std;
 
 // Functions
 void placeQueens();
 void getQueens();
 void output();
+void storePosition();
+bool getOverlap();
 
 // Variables
-vector<Queen> full; // Contains all the non-placed queens
-stack<Queen> empty; // Contains the placed / placing-at-the-moment queens
+std::vector<Queen> full; // Contains all the non-placed queens
+std::vector<int[2]> pos;
+std::stack<Queen> empty; // Contains the placed / placing-at-the-moment queens
 int end = 0;
 
 // Global size variable
@@ -38,15 +40,15 @@ int main() {
     removed until empty. Once empty, the loop exits and the file is flushed/closed of data.
  */
 void output() {
-    ofstream outFile;
+    std::ofstream outFile;
 
     outFile.open("outputData.txt");
-    outFile << size + "," << size << endl; // Outputs the size of the board at first line.
+    outFile << Vars::size + "," << Vars::size << std::endl; // Outputs the size of the board at first line.
 
     while(empty.size() != 0) {
         outFile << empty.top().getRow() + ","
             << empty.top().getColumn()
-            << endl;
+            << std::endl;
         
         empty.pop(); // Removes top Queen Object.
     }
@@ -68,16 +70,17 @@ Description:
     all queens have been placed ('end' value is equal to the size of the board).
 */
 void placeQueens(bool moveQueen) {
-    if(end < size) { // If there is still a queen that can be moved (ie. 1 or 100 queen(s) left to move)
+    if(end < Vars::size) { // If there is still a queen that can be moved (ie. 1 or 100 queen(s) left to move)
         if(moveQueen) { // No spot for current queen. Reset column to 1st, push queen back, move previous queen
             empty.top().setColumn(1);
             full.push_back(empty.top());
             empty.pop();
-            empty.top().increaseCol(1);
+            pos.pop_back();
+            empty.top().increaseCol();
             end--; // Decreased placed queen count.
             
             // Queen at edge of wall, recall function.
-            if(empty.top().getColumn() > size)
+            if(empty.top().getColumn() > Vars::size)
                 placeQueens(true);
         } else { // queen placed, start moving next queen
             empty.push(full.back());
@@ -85,11 +88,11 @@ void placeQueens(bool moveQueen) {
         }
 
         int count = 0;
-        while(empty.top().overlap()) { // Loop until queen is capable of being placed.
-            empty.top().increaseCol(1);
+        while(getOverlap()) { // Loop until queen is capable of being placed.
+            empty.top().increaseCol();
             count++; // Counter for board movement.
 
-            if(count >= size) { // Queen reached edge of board, recall function
+            if(count >= Vars::size) { // Queen reached edge of board, recall function
                 placeQueens(true);
                 count = 0;
             }
@@ -97,8 +100,27 @@ void placeQueens(bool moveQueen) {
 
         // Increase placed queen, recall function
         end++;
+        storePosition();
         placeQueens(false);
     } else return;
+}
+
+bool getOverlap() {
+
+    for(int i = 0; i < pos.size(); i++) {
+        if(empty.top().overlap(pos.at(i)[0], pos.at(i)[1]))
+            return true;
+    }
+
+    return false;
+}
+
+void storePosition() {
+    int store[2];
+    store[0] = empty.top().getRow();
+    store[1] = empty.top().getColumn();
+
+    pos.push_back(store);
 }
 
 /**
@@ -114,15 +136,17 @@ void getQueens() {
     int amount = 0;
 
     while(amount < 3) {
-        cout << "Enter number of Queens (Greater than 3): ";
-        cin >> amount;
+        std::cout << "Enter number of Queens (Greater than 3): ";
+        std::cin >> amount;
 
         if(amount < 3)
-            cout << "Value is not greater than 3...\n";
+            std::cout << "Value is not greater than 3...\n";
     }
 
-    size = amount;
+    Vars::size = amount;
 
     for(int i = 0; i < amount; i++)
         full.push_back(*new Queen(i + 1));
+
+    empty = *new std::stack<Queen>();
 }
