@@ -1,5 +1,6 @@
 #ifndef QUEEN_H
 #define QUEEN_H
+#include <math.h>
 
 /**
 Type: Class
@@ -75,34 +76,41 @@ class Queen {
         Return: BOOLEAN
         Description:
             Checks if the current queen and the give coordinates of another queen are within direct line-of-sight
-            of each other (Checking row, column, and diagonal). The other queens position is stored in a temporary
-            int array variable; which is then manipulated based which direction the OTHER queen needs to go to
-            THIS queen's location (Move other queen to this queen).
+            of each other (Checking row, column, and diagonal). The rows/columns of the queens are then subtracted
+            from each other and compared with their absolute value. If the value's are the same, then the digonal
+            has a line-of-sight to another queen and is overlapping.
         */
         bool overlap(int row, int col) {
             int oPos[2];
-            oPos[0] = row;
-            oPos[1] = col;
-            bool left = col > pos[1]; // Determine if OTHER queen is left or right of THIS queen
+            oPos[0] = row; // OTHER queen row
+            oPos[1] = col; // OTHER queen col
 
             if(oPos[0] == pos[0] || oPos[1] == pos[1]) // If Row or Column is the same, return true
                 return true;
 
-            while(true) { // Infinite Loop
-                if(oPos[0] == pos[0] && oPos[1] == pos[1]) // Checks if Row/Col are the same value, if so, return true.
-                    return true;
-                else if((oPos[0] == pos[0] && oPos[1] != pos[1]) || (oPos[0] != pos[0] && oPos[1] == oPos[1])) // Checks if the Row OR Column are the same value, if so no overlap.
-                    return false;
+            // Determines if the digonal has line-of-sight.
+            oPos[0] = abs(oPos[0] - pos[0]);
+            oPos[1] = abs(oPos[1] - pos[1]);
 
-                // Increase row by 1, change column based on direction (+/- 1)
-                oPos[0] += 1;
-                oPos[1] += left ? -1 : 1;
+            if(oPos[0] == oPos[1])
+                return true;
+
+            // bool left = col > pos[1]; // Determine if OTHER queen is left or right of THIS queen
+            // while(true) { // Infinite Loop
+            //     if(oPos[0] == pos[0] && oPos[1] == pos[1]) // Checks if Row/Col are the same value, if so, return true.
+            //         return true;
+            //     else if((oPos[0] == pos[0] && oPos[1] != pos[1]) || (oPos[0] != pos[0] && oPos[1] == oPos[1])) // Checks if the Row OR Column are the same value, if so no overlap.
+            //         return false;
+
+            //     // Increase row by 1, change column based on direction (+/- 1)
+            //     oPos[0] += 1;
+            //     oPos[1] += left ? -1 : 1;
 
 
-                // If the OTHER queen position hits a wall, no overlap. Return false.
-                if(oPos[0] < 1 || oPos[0] > Vars::size || oPos[1] < 1 || oPos[1] > Vars::size)
-                    return false;
-            }
+            //     // If the OTHER queen position hits a wall, no overlap. Return false.
+            //     if(oPos[0] < 1 || oPos[0] > Vars::size || oPos[1] < 1 || oPos[1] > Vars::size)
+            //         return false;
+            // }
         }
 }
 
