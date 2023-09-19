@@ -6,8 +6,8 @@
 #include <vector>
 
 // Functions
-void placeQueens();
-void getQueens(bool);
+void placeQueens(bool);
+void getQueens();
 void output();
 void storePosition();
 bool getOverlap();
