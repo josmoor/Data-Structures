@@ -150,7 +150,7 @@ void getQueens() {
         full.push_back(*new Queen(i + 1));
 
     for(int i = 0; i < amount; i++) {
-        std::cout << i <, ": " << full.at(i).getRow() << std::endl;
+        std::cout << i << ": " << full.at(i).getRow() << std::endl;
     }
 
     empty = *new std::stack<Queen>();
