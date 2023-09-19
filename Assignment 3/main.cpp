@@ -7,7 +7,7 @@
 
 // Functions
 void placeQueens();
-void getQueens();
+void getQueens(bool);
 void output();
 void storePosition();
 bool getOverlap();
