@@ -87,9 +87,10 @@ void placeQueens(bool moveQueen) {
         } else { // queen placed, start moving next queen
             empty.push(full.back());
             full.pop_back();
+            end++;
         }
 
-        int count = 0;
+        int count = 1;
         while(getOverlap()) { // Loop until queen is capable of being placed.
             empty.top().increaseCol(Vars::size);
             count++; // Counter for board movement.
@@ -100,8 +101,7 @@ void placeQueens(bool moveQueen) {
             }
         }
 
-        // Increase placed queen, recall function
-        end++;
+        // Store queen location, recall function
         storePosition();
         placeQueens(false);
     } else return;

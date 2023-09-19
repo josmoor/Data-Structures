@@ -95,7 +95,7 @@ class Queen {
             oPos[0] = row; // OTHER queen row
             oPos[1] = col; // OTHER queen col
 
-            if(oPos[0] == pos[0] || oPos[1] == pos[1]) // If Row or Column is the same, return true
+            if(oPos[1] == pos[1]) // If Column is the same, return true
                 return true;
 
             // Determines if the digonal has line-of-sight.
