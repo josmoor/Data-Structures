@@ -70,7 +70,6 @@ Description:
 */
 void placeQueens(bool moveQueen) {
     if(end < Vars::size) { // If there is still a queen that can be moved (ie. 1 or 100 queen(s) left to move)
-        std::cout << end << std::endl;
         if(moveQueen) { // No spot for current queen. Reset column to 1st, push queen back, move previous queen
             empty.top().setColumn(1);
             full.push_back(empty.top());
@@ -94,7 +93,7 @@ void placeQueens(bool moveQueen) {
         while(getOverlap()) { // Loop until queen is capable of being placed.
             empty.top().increaseCol();
             count++; // Counter for board movement.
-
+            std::cout << end << std::endl;
             if(count >= Vars::size) { // Queen reached edge of board, recall function
                 placeQueens(true);
                 count = 0;
