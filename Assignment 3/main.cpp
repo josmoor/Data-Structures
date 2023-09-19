@@ -19,7 +19,7 @@ int end = 0;
 
 // Global size variable
 namespace Vars {
-    int size; // Size of the board
+    int size = 4; // Size of the board
 }
 
 // Main
