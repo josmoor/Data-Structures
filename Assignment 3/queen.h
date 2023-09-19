@@ -55,8 +55,6 @@ class Queen {
         */
         void increaseCol(int size) {
             pos[1] += 1;
-            if(pos[1] > size)
-                pos[1] = 1;
         }
 
         /**
