@@ -95,7 +95,7 @@ void placeQueens(bool moveQueen) {
         while(getOverlap()) { // Loop until queen is capable of being placed.
             empty.top().increaseCol(Vars::size);
 
-            std::cout << end << ":" << empty.top().getRow() << "," << empty.top().getColumn() << std::endl;
+            //std::cout << end << ":" << empty.top().getRow() << "," << empty.top().getColumn() << std::endl;
             
             if(empty.top().getColumn() > Vars::size) { // Queen reached edge of board, recall function
                 empty.top().setColumn(1);
