@@ -102,6 +102,7 @@ void placeQueens(bool moveQueen) {
 
         // Increase placed queen, recall function
         end++;
+        std::cout << end << std::endl;
         storePosition();
         placeQueens(false);
     } else return;
