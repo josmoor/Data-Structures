@@ -71,7 +71,6 @@ Description:
 void placeQueens(bool moveQueen) {
     if(end < Vars::size) { // If there is still a queen that can be moved (ie. 1 or 100 queen(s) left to move)
         if(moveQueen) { // No spot for current queen. Reset column to 1st, push queen back, move previous queen
-            empty.top().setColumn(1);
             full.push_back(empty.top());
             empty.pop();
 
@@ -96,11 +95,9 @@ void placeQueens(bool moveQueen) {
             count++; // Counter for board movement.
 
             std::cout << end << ":" << empty.top().getRow() << "," << empty.top().getColumn() << std::endl;
-
-            if(empty.top().getColumn() > Vars::size)
-                std::cout << end << ": " << empty.top().getColumn() << ", is greater than " << Vars::size << std::endl;
             
             if(count >= Vars::size || empty.top().getColumn() > Vars::size) { // Queen reached edge of board, recall function
+                empty.top().setColumn(1);
                 placeQueens(true);
                 count = 0;
             }
