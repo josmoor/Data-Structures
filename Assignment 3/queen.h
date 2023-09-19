@@ -53,7 +53,11 @@ class Queen {
         Description:
             Increases the column value of this queen by 1.
         */
-        void increaseCol() { pos[1] += 1; }
+        void increaseCol() {
+            pos[1] += 1;
+            if(pos[1] >= Vars::size)
+                pos[1] = 1;
+        }
 
         /**
         Type: Method
