@@ -31,6 +31,12 @@ class Queen {
         }
 
         /**
+        Type: Deconstructor
+        Description: Used with in-tangent with Vectors/Stacks to ensure memory is released on popping.
+        */
+        ~Queen() { }
+
+        /**
         Type: Method
         Name: setColumn
         Parameters: INT - value
@@ -112,6 +118,6 @@ class Queen {
             //         return false;
             // }
         }
-}
+};
 
 #endif
