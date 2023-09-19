@@ -96,8 +96,6 @@ void placeQueens(bool moveQueen) {
                 empty.top().setColumn(1);
                 placeQueens(true);
             }
-
-            std::cout << pos.at(1) << std::endl;
         }
 
         // Store queen location, recall function
