@@ -95,7 +95,7 @@ void placeQueens(bool moveQueen) {
             empty.top().increaseCol(Vars::size);
             count++; // Counter for board movement.
 
-            std::cout << empty.top().getRow() << "," << empty.top().getColumn() << std::endl;
+            std::cout << end << ":" << empty.top().getRow() << "," << empty.top().getColumn() << std::endl;
             
             if(count >= Vars::size || empty.top().getColumn() > Vars::size) { // Queen reached edge of board, recall function
                 placeQueens(true);
