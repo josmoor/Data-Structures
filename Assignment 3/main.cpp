@@ -122,6 +122,8 @@ bool getOverlap() {
 void storePosition() {
     pos.push_back(empty.top().getRow());
     pos.push_back(empty.top().getColumn());
+    
+    std::cout << "pos size: " << pos.size() / 2 << std::endl;
 }
 
 /**
