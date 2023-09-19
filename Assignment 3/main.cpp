@@ -70,6 +70,7 @@ Description:
 */
 void placeQueens(bool moveQueen) {
     if(end < Vars::size) { // If there is still a queen that can be moved (ie. 1 or 100 queen(s) left to move)
+        std::cout << "end:" << end << " moveQueen: " << (moveQueen ? "true" : "false") << " empty size: " << empty.size() << std::endl;
         if(moveQueen) { // No spot for current queen. Reset column to 1st, push queen back, move previous queen
             full.push_back(empty.top());
             empty.pop();
