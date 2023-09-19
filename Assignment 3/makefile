@@ -5,5 +5,6 @@ queen.o: queen.h
 clean:
 	rm *.o
 	rm *.txt
-run:
+	rm run
+executable:
 	./run
