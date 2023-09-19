@@ -117,6 +117,8 @@ class Queen {
             //     if(oPos[0] < 1 || oPos[0] > Vars::size || oPos[1] < 1 || oPos[1] > Vars::size)
             //         return false;
             // }
+
+            return false;
         }
 };
 
