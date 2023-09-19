@@ -1,6 +1,5 @@
 #include "queen.h"
 #include <iostream>
-#include <stdio.h>
 #include <fstream>
 #include <stack>
 #include <vector>
@@ -14,7 +13,7 @@ bool getOverlap();
 
 // Variables
 std::vector<Queen> full; // Contains all the non-placed queens
-std::vector<int[2]> pos;
+std::vector<int> pos;
 std::stack<Queen> empty; // Contains the placed / placing-at-the-moment queens
 int end = 0;
 
@@ -75,7 +74,10 @@ void placeQueens(bool moveQueen) {
             empty.top().setColumn(1);
             full.push_back(empty.top());
             empty.pop();
+
+            pos.pop_back(); // Need to call twice (remove column/row int values)
             pos.pop_back();
+
             empty.top().increaseCol();
             end--; // Decreased placed queen count.
             
@@ -107,8 +109,8 @@ void placeQueens(bool moveQueen) {
 
 bool getOverlap() {
 
-    for(int i = 0; i < pos.size(); i++) {
-        if(empty.top().overlap(pos.at(i)[0], pos.at(i)[1]))
+    for(int i = 0; i < pos.size(); i+=2) {
+        if(empty.top().overlap(pos.at(i), pos.at(i + 1))) // i = row, i+1 = column
             return true;
     }
 
@@ -116,11 +118,8 @@ bool getOverlap() {
 }
 
 void storePosition() {
-    int store[2];
-    store[0] = empty.top().getRow();
-    store[1] = empty.top().getColumn();
-
-    pos.push_back(store);
+    pos.push_back(empty.top().getRow());
+    pos.push_back(empty.top().getColumn());
 }
 
 /**
