@@ -78,7 +78,7 @@ void placeQueens(bool moveQueen) {
             pos.pop_back(); // Need to call twice (remove column/row int values)
             pos.pop_back();
 
-            empty.top().increaseCol();
+            empty.top().increaseCol(Vars::size);
             end--; // Decreased placed queen count.
             
             // Queen at edge of wall, recall function.
@@ -91,7 +91,7 @@ void placeQueens(bool moveQueen) {
 
         int count = 0;
         while(getOverlap()) { // Loop until queen is capable of being placed.
-            empty.top().increaseCol();
+            empty.top().increaseCol(Vars::size);
             count++; // Counter for board movement.
             std::cout << end << "," << count << "," << Vars::size << std::endl;
             if(count >= Vars::size) { // Queen reached edge of board, recall function

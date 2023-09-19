@@ -1,7 +1,6 @@
 #ifndef QUEEN_H
 #define QUEEN_H
 #include <math.h>
-#include "main.cpp"
 
 /**
 Type: Class
@@ -54,9 +53,9 @@ class Queen {
         Description:
             Increases the column value of this queen by 1.
         */
-        void increaseCol() {
+        void increaseCol(int size) {
             pos[1] += 1;
-            if(pos[1] >= Vars::size)
+            if(pos[1] >= size)
                 pos[1] = 1;
         }
 
