@@ -1,6 +1,7 @@
 #ifndef QUEEN_H
 #define QUEEN_H
 #include <math.h>
+#include "main.cpp"
 
 /**
 Type: Class
