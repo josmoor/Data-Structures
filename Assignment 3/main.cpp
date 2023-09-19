@@ -42,7 +42,7 @@ void output() {
     std::ofstream outFile;
 
     outFile.open("outputData.txt");
-    outFile << Vars::size + "," << Vars::size << std::endl; // Outputs the size of the board at first line.
+    outFile << Vars::size << "," << Vars::size << std::endl; // Outputs the size of the board at first line.
 
     for(int i = 0; i < pos.size(); i+=2) {
         outFile << pos.at(i) << ","
@@ -70,12 +70,9 @@ Description:
 */
 void placeQueens(bool moveQueen) {
     if(end < Vars::size) { // If there is still a queen that can be moved (ie. 1 or 100 queen(s) left to move)
-        std::cout << "end:" << end << " moveQueen: " << (moveQueen ? "true" : "false") << " empty size: " << empty.size() << std::endl;
         if(moveQueen) { // No spot for current queen. Reset column to 1st, push queen back, move previous queen
             full.push_back(empty.top());
             empty.pop();
-
-            std::cout << "size: " << empty.size() << std::endl;
 
             pos.pop_back(); // Need to call twice (remove column/row int values)
             pos.pop_back();
@@ -94,8 +91,6 @@ void placeQueens(bool moveQueen) {
 
         while(getOverlap()) { // Loop until queen is capable of being placed.
             empty.top().increaseCol(Vars::size);
-
-            //std::cout << end << ":" << empty.top().getRow() << "," << empty.top().getColumn() << std::endl;
             
             if(empty.top().getColumn() > Vars::size) { // Queen reached edge of board, recall function
                 empty.top().setColumn(1);
@@ -122,8 +117,6 @@ bool getOverlap() {
 void storePosition() {
     pos.push_back(empty.top().getRow());
     pos.push_back(empty.top().getColumn());
-    
-    std::cout << "pos size: " << pos.size() / 2 << std::endl;
 }
 
 /**
