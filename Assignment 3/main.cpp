@@ -44,12 +44,13 @@ void output() {
     outFile.open("outputData.txt");
     outFile << Vars::size + "," << Vars::size << std::endl; // Outputs the size of the board at first line.
 
-    while(empty.size() != 0) {
+    while(empty.size() >= 0) {
         outFile << empty.top().getRow() + ","
             << empty.top().getColumn()
             << std::endl;
         
         empty.pop(); // Removes top Queen Object.
+        std::cout << empty.size() << std::endl;
     }
 
     outFile.flush();
