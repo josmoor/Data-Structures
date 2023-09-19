@@ -93,7 +93,7 @@ void placeQueens(bool moveQueen) {
         while(getOverlap()) { // Loop until queen is capable of being placed.
             empty.top().increaseCol();
             count++; // Counter for board movement.
-            std::cout << end << std::endl;
+            std::cout << "end: " + end << " Count: " + count << " Vars::size: " + Vars::size << std::endl;
             if(count >= Vars::size) { // Queen reached edge of board, recall function
                 placeQueens(true);
                 count = 0;
