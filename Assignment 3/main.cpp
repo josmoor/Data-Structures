@@ -101,6 +101,7 @@ void placeQueens(bool moveQueen) {
             full.pop_back();
         }
 
+<<<<<<< HEAD
         bool retry = false;
         for(int i = 0; i < Vars::size + 10; i++) {
             if(getOverlap()) {
@@ -111,6 +112,14 @@ void placeQueens(bool moveQueen) {
                     end--;
                     break;
                 }
+=======
+        while(getOverlap()) { // Loop until queen is capable of being placed.
+            empty.top().increaseCol(Vars::size);
+            
+            if(empty.top().getColumn() > Vars::size) { // Queen reached edge of board, recall function
+                empty.top().setColumn(1);
+                placeQueens(true);
+>>>>>>> 1be0de7e0906c303ada50aaf2c61f1c8611d494b
             }
         }
 
