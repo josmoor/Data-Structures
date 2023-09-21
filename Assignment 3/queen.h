@@ -12,6 +12,8 @@ class Queen {
     private:
         // Position variable [0 - row, 1 - column]
         int pos[2];
+        int r;
+        int c;
 
     public:
         // Generic Constructor
@@ -28,6 +30,8 @@ class Queen {
         Queen(int row) {
             pos[0] = row;
             pos[1] = 1;
+            r = row;
+            c = 1;
         }
 
         /**
@@ -44,7 +48,10 @@ class Queen {
         Description:
             Sets the column of the queen.
         */
-        void setColumn(int value) { pos[1] = value; }
+        void setColumn(int value) {
+            /*pos[1] = value;*/
+            c = value;
+        }
 
         /**
         Type: Method
@@ -53,8 +60,9 @@ class Queen {
         Description:
             Increases the column value of this queen by 1.
         */
-        void increaseCol(int size) {
-            pos[1] += 1;
+        void increaseCol() {
+            //pos[1] += 1;
+            c++;
         }
 
         /**
@@ -64,7 +72,10 @@ class Queen {
         Description:
             Gets the row that this queen is placed in.
         */
-        int getRow() { return pos[0]; }
+        int getRow() {
+            //return pos[0];
+            return r;
+        }
 
         /**
         Type: Method
@@ -73,7 +84,10 @@ class Queen {
         Description:
             Gets the column this queen in placed in
         */
-        int getColumn() { return pos[1]; }
+        int getColumn() {
+            //return pos[1];
+            return c;
+        }
 
         /**
         Type: Method
@@ -93,12 +107,12 @@ class Queen {
             oPos[0] = row; // OTHER queen row
             oPos[1] = col; // OTHER queen col
 
-            if(oPos[1] == pos[1]) // If Column is the same, return true
+            if(oPos[1] == c) // If Column is the same, return true
                 return true;
 
             // Determines if the digonal has line-of-sight.
-            oPos[0] = abs(oPos[0] - pos[0]);
-            oPos[1] = abs(oPos[1] - pos[1]);
+            oPos[0] = abs(oPos[0] - r);
+            oPos[1] = abs(oPos[1] - c);
 
             if(oPos[0] == oPos[1])
                 return true;
