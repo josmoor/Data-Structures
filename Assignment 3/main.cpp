@@ -10,6 +10,9 @@ void getQueens();
 void output();
 void removePos();
 void storePosition();
+void addToStack();
+void removeFromStack();
+bool tryPlace();
 bool getOverlap();
 
 // Variables
@@ -46,12 +49,17 @@ void output() {
     outFile.open("outputData.txt");
     outFile << Vars::size << "," << Vars::size << std::endl; // Outputs the size of the board at first line.
 
-    for(int i = 0; i < posR.size(); i+=2) {
-        outFile << posR.at(i) << ","
-            << posC.at(i)
-            << std::endl;
+    // for(int i = 0; i < posR.size(); i+=2) {
+    //     outFile << posR.at(i) << ","
+    //         << posC.at(i)
+    //         << std::endl;
         
-        empty.pop(); // Removes top Queen Object.
+    //     empty.pop(); // Removes top Queen Object.
+    // }
+
+    while(empty.size() != 0) {
+        outFile << empty.top().getRow() << "," << empty.top().getColumn() << std::endl;
+        empty.pop();
     }
 
     outFile.flush();
@@ -72,53 +80,72 @@ Description:
 */
 void placeQueens(bool moveQueen) {
     if(end < Vars::size) { // If there is still a queen that can be moved (ie. 1 or 100 queen(s) left to move)
-        std::cout << "P:" << posC.size() << std::endl;
-        if(moveQueen) { // No spot for current queen. Reset column to 1st, push queen back, move previous queen
-            empty.top().setColumn(1);
-            full.push_back(empty.top());
-            empty.pop();
-            end--;
-
-            empty.top().increaseCol();
-            removePos();
-            
-            // Queen at edge of wall, recall function.
-            if(empty.top().getColumn() > Vars::size) {
-                std::cout << "HIT!" << std::endl;
-                placeQueens(true);
-            }
-        } else { // queen placed, start moving next queen
-            if(end + 1 == Vars::size && full.empty()) {
-                end++;
-                return;
-            }
-
-            if(empty.size() != 0)
-                storePosition();
-            
-            empty.push(full.back());
-            end++;
-            full.pop_back();
-        }
-
         bool retry = false;
-        for(int i = 0; i < Vars::size + 10; i++) {
-            if(getOverlap()) {
-                empty.top().increaseCol();
 
-                if(empty.top().getColumn() > Vars::size) {
-                    retry = true;
-                    end--;
-                    break;
+        if(!moveQueen) {
+            addToStack();
+            retry = tryPlace();
+
+            if(!retry) {
+                storePosition();
+                placeQueens(retry);
+            } else {
+                removeFromStack();
+                placeQueens(retry);
+            }
+        } else {
+            empty.top().increaseCol();
+
+            if(empty.top().getColumn() > Vars::size) {
+                removeFromStack();
+                placeQueens(true);
+            } else {
+                retry = tryPlace();
+
+                if(!retry) {
+                    storePosition();
+                    placeQueens(retry);
+                } else {
+                    removeFromStack();
+                    placeQueens(retry);
                 }
             }
         }
 
-        placeQueens(retry);
     } else return;
 }
 
+void addToStack() {
+    empty.push(full.back());
+    full.pop_back();
+    end++;
+}
+
+void removeFromStack() {
+    empty.top().setColumn(1);
+    full.push_back(empty.top());
+    empty.pop();
+    removePos();
+    end--;
+}
+
+bool tryPlace() {
+    for(int i = 0; i < Vars::size + 1; i++) {
+        if(getOverlap())
+            empty.top().increaseCol();
+
+        if(empty.top().getColumn() > Vars::size) {
+            return true;
+        }
+    }
+
+    return false;
+}
+
 bool getOverlap() {
+
+    if(posC.size() == 0 || posR.size() == 0)
+        return false;
 
     for(int i = 0; i < posR.size(); i++) {
         if(empty.top().overlap(posR.at(i), posC.at(i))) // i = row, i+1 = column
