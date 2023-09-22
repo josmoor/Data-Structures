@@ -45,8 +45,11 @@ int main() {
  */
 void output() {
     std::ofstream outFile;
+    std::ofstream displayFile;
+    std::string graphic;
 
     outFile.open("outputData.txt");
+    displayFile.open("graphicalDisplay.txt");
     outFile << Vars::size << "," << Vars::size << std::endl; // Outputs the size of the board at first line.
 
     // for(int i = 0; i < posR.size(); i+=2) {
@@ -58,12 +61,19 @@ void output() {
     // }
 
     while(empty.size() != 0) {
+        graphic = "";
+        for(int i = 0; i < Vars::size; i++)
+            graphic.append((i + 1 == empty.top().getColumn() ? "Q" : "-"));
+
         outFile << empty.top().getRow() << "," << empty.top().getColumn() << std::endl;
+        displayFile << graphic << std::endl;
         empty.pop();
     }
 
     outFile.flush();
     outFile.close();
+    displayFile.flush();
+    displayFile.close();
 }
 
 /**
