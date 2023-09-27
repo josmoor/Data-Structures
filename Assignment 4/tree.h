@@ -7,20 +7,23 @@ class Tree {
         Tree *left;
         Tree *right;
         int value;
+        int height, depth;
 
     public:
-        Tree(Tree *parent, int value) {
-            *this->parnet = *parnet;
+        Tree(Tree *parent, int value, int height, int depth) {
+            *this->parent = *parent;
             this->value = value;
+            this->height = height;
+            this->depth = depth;
         }
         ~Tree() {
-            *parnet = null;
+            *parent = null;
             *left = null;
             *right = null;
         }
 
-        void setParnet(Tree *parnet) {
-            *this->parnet = parnet;
+        void setParnet(Tree *parent) {
+            *this->parent = *parent;
         }
 
         void setLeft(Tree *left) {
@@ -28,10 +31,20 @@ class Tree {
         }
 
         void setRight(Tree *right) {
-            *this->right - *right;
+            *this->right = *right;
+        }
+
+        void setHeight(int value) {
+            height = value;
+        }
+
+        void setDepth(int value) {
+            depth = value;
         }
 
         int getValue() { return value; }
+        int getHeight() { return height; }
+        int getDepth() { return depth; }
 
         Tree * getParnet() { return *parnet; }
         Tree * getLeftChild() { return *left; }
