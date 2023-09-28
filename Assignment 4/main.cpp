@@ -46,8 +46,14 @@ void getInput() {
         values.push_back(input);
     }
 
-    for(auto i : values) {
-        std::cout << "Value: " << i << std::endl;
+    for(int i = 0; i < values.size(); i++) {
+        for(int j = i + 1; j < values.size(); j++) {
+            if(values.at(i) > values.at(j)) {
+                int tmp = values.at(i);
+                values.at(i) = values.at(j);
+                values.at(j) = tmp;
+            }
+        }
     }
 }
 
