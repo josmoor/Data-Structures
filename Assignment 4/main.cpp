@@ -1,65 +1,55 @@
 #include "tree.h"
+#include <iostream>
+#include <vector>
 
 // Functions
 void getInput();
-void place(int);
-void balance();
+void place();
 void display();
 
 // Variables
 Tree *first;
+std::vector<int> values;
 
 int main() {
 
     getInput();
+    place();
     display();
 
     return 0;
 }
 
 void getInput() {
+    int input;
     int counter;
-    int value;
-
-    std::cout << "Enter array size: ";
-    std::cint >> counter;
+    
+    std::cout << "Enter number of values: ";
+    std::cin >> counter;
 
     while(counter > 0) {
         std::cout << "Enter value: ";
-        std::cin >> value;
-
-        place(value);
+        std::cin >> input;
         counter--;
+
+        values.push_back(input);
     }
-}
 
-void place(int value) {
-    if(*first == null) {
-        first = new Tree(null, value, 1, 0);
-        return;
-    } else {
-        Tree *current = first;
-        bool placing = true;
-        while(placing) {
-            if(current->getValue() > value) { // <
-                //TODO: While loop checking each node.
-            } else { // >=
-
+    for(int i = 0; i < values.size(); i++) {
+        for(int j = i + 1; j < values.size(); j++) {
+            if(values.at(i) < values.at(j)) {
+                int tmp = values.at(i);
+                values.at(i) = values.at(j);
+                values.at(j) = tmp;
             }
         }
     }
 }
 
-void balance() {
-    //TODO: Loop through until depth of lowest leaf are 1 off from each other.
+void place() {
+    
 }
 
 void display() {
-    Tree *dis = *first;
 
-    while(*dis.getLeftChild() != null) {
-        *dis = *dis.getLeftChild();
-    }
-
-    std::cout << "Lowest Value: " << *dis.getValue() << std::endl;
 }
