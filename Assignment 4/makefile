@@ -6,6 +6,5 @@ tree.o: tree.h
 clean:
 	rm run
 	rm *.o
-	rm *.txt
 exe:
 	./run
