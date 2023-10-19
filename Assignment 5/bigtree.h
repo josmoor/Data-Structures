@@ -1,6 +1,11 @@
 #ifndef BIGTREE_H
 #define BIGRREE_H
 
+#include<iostream>
+#include<fstream>
+#include<string>
+#include<map>
+
 struct node {
     int* data;
     int* childCount[2];
@@ -29,6 +34,12 @@ class BigTree {
                 tmpNextLoc->parent->childCount[0] += 1;
                 return 1;
             }
+        }
+
+        std::string getLine(node* loc) {
+            std::string ret = "";
+
+
         }
 
     public:
@@ -207,10 +218,18 @@ class BigTree {
                 tmpRoot->prev->prev->parent = tmpRoot;
                 tmpRoot->prev->parent = tmpRoot;        // Set previous two values to children of current node
 
+                if(hasChildren(tmpRoot)) {
+                    tmpRoot->prev->children[1] = tmpRoot->children[0];
+                    node* tmpNext = tmpRoot->children[1];
+
+                    while(tmpNext != nullptr)
+                        tmpNext->parent = tmpRoot->prev;
+                }
+
                 if(tmpRoot->data < tmpRoot->parent->data) {
                     tmpRoot->parent->children[0] = tmpRoot->next; // Set parent child to next node
                     tmpRoot->childCount[0] = new int(2);
-                    tmpRoot->next->childCount[0] = new int(2);
+                    tmpRoot->parent->childCount[0] = new int(2);
                     tmpRoot->prev->next = nullptr;
                     tmpRoot->next->prev = nullptr;
 
@@ -248,11 +267,56 @@ class BigTree {
             }
         }
 
-        void displayTree() {
-            
+        void displayTree(std::map<int, std::string> tree, node* tmpRoot, int depth) {
+            //node* tmpRoot = root;
+            node* tmpNext = tmpRoot;
+
+            while(tmpNext->next != nullptr)
+                tmpNext = tmpNext->next;
+
+            while(hasChildren(tmpNext)) {
+                tmpNext = tmpNext->children[1];
+                tmpRoot = tmpNext;
+                depth++;
+
+                while(tmpNext->next != nullptr)
+                    tmpNext = tmpNext->next;
+            }
+
+            std::string add = "";
+
+            while(tmpNext != nullptr) {
+                add = "(" + std::to_string(*tmpNext->parent->data) + ")" + std::to_string(*tmpNext->data) + " " + add;
+            }
+
+            if(tree.count(depth) == 1) {
+                std::string current = tree.at(depth);
+                current = add + " | " + current;
+                tree.at(depth) = current;
+            } else
+                tree.at(depth) = add;
+
+            if(depth != 0) {
+                tmpNext = tmpRoot;
+                tmpRoot = tmpRoot->parent;
+                depth--;
+                bool stop = false;
+
+                while(!stop) {
+                    //TODO: If children[1] is complete, move to children[0]
+                    //TODO: If children[0] is complete, move to previous
+                    //TODO: If previous is null, move to parent.
+                    //TODO: Repeat previous steps.
+                }
+            }
+
+            if(tmpRoot != nullptr)
+                displayTree(tree, tmpRoot, depth);
+            else
+                return;
         }
 
-        void displayKeys(int value) {
+        void displayKeys() {
 
         }
 
