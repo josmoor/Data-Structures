@@ -267,20 +267,24 @@ class BigTree {
             }
         }
 
-        void displayTree(std::map<int, std::string> tree, node* tmpRoot, int depth) {
+        void displayTree(std::map<int, std::string> tree, node* tmpRoot, int depth, bool pushToEnd, bool toChildren) {
             //node* tmpRoot = root;
             node* tmpNext = tmpRoot;
 
-            while(tmpNext->next != nullptr)
-                tmpNext = tmpNext->next;
-
-            while(hasChildren(tmpNext)) {
-                tmpNext = tmpNext->children[1];
-                tmpRoot = tmpNext;
-                depth++;
-
+            if(pushToEnd) {
                 while(tmpNext->next != nullptr)
                     tmpNext = tmpNext->next;
+            }
+
+            if(toChildren) {
+                while(hasChildren(tmpNext)) {
+                    tmpNext = tmpNext->children[1];
+                    tmpRoot = tmpNext;
+                    depth++;
+
+                    while(tmpNext->next != nullptr)
+                        tmpNext = tmpNext->next;
+                }
             }
 
             std::string add = "";
@@ -303,6 +307,12 @@ class BigTree {
                 bool stop = false;
 
                 while(!stop) {
+                    if(tmpRoot->children[0] == tmpNext) {
+                        tmpNext = tmpRoot->prev;
+                    } else if(tmpRoot->children[1] != nullptr && tmpRoot->children[1] == tmpNext) {
+                        tmpNext = tmpRoot->children[0];
+                        displayTree(tree, tmpNext, depth, true, false);
+                    }
                     //TODO: If children[1] is complete, move to children[0]
                     //TODO: If children[0] is complete, move to previous
                     //TODO: If previous is null, move to parent.
@@ -311,7 +321,7 @@ class BigTree {
             }
 
             if(tmpRoot != nullptr)
-                displayTree(tree, tmpRoot, depth);
+                displayTree(tree, tmpRoot, depth, false);
             else
                 return;
         }
