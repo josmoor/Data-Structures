@@ -291,6 +291,7 @@ class BigTree {
 
             while(tmpNext != nullptr) {
                 add = "(" + std::to_string(*tmpNext->parent->data) + ")" + std::to_string(*tmpNext->data) + " " + add;
+                tmpNext =tmpNext->prev;
             }
 
             if(tree.count(depth) == 1) {
@@ -309,9 +310,26 @@ class BigTree {
                 while(!stop) {
                     if(tmpRoot->children[0] == tmpNext) {
                         tmpNext = tmpRoot->prev;
+
+                        if(tmpNext == nullptr) {
+                            tmpNext = tmpRoot;
+                            tmpRoot = tmpRoot->parent;
+                            depth--;
+
+                            if(depth == -1)
+                                stop = true;
+                        } else {
+                            stop = true;
+                            displayTree(tree, tmpNext, depth, false, true);
+                        }
                     } else if(tmpRoot->children[1] != nullptr && tmpRoot->children[1] == tmpNext) {
                         tmpNext = tmpRoot->children[0];
-                        displayTree(tree, tmpNext, depth, true, false);
+                        displayTree(tree, tmpNext, depth, true, true);
+                    } else {
+                        tmpNext = tmpNext->prev;
+                        tmpRoot = tmpNext->prev;
+
+                        if(tmpRoot)
                     }
                     //TODO: If children[1] is complete, move to children[0]
                     //TODO: If children[0] is complete, move to previous
@@ -322,8 +340,9 @@ class BigTree {
 
             if(tmpRoot != nullptr)
                 displayTree(tree, tmpRoot, depth, false);
-            else
-                return;
+            else { // Display Tree
+
+            }
         }
 
         void displayKeys() {
