@@ -6,24 +6,11 @@
 
 class Hashtable {
     private:
-        std::string * keys[0];
 
     public:
-        Hashtable() {
-            
-        }
+        Hashtable() { }
 
-        ~Hashtable() {
-            try {
-                int i = 0;
-                while(true) {
-                    delete keys[i];
-                    keys[i] = nullptr;
-                }
-            } catch(const std::exception& e){ }
-
-            delete[] keys;
-        }
+        ~Hashtable() {}
 
         bool isKey(std::string check) { return false; }
 };
