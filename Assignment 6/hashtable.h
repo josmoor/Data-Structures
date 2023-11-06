@@ -6,13 +6,11 @@
 
 class Hashtable {
     private:
-
     public:
-        Hashtable() { }
+        Hashtable(int size) {
+        }
 
         ~Hashtable() {}
-
-        bool isKey(std::string check) { return false; }
 };
 
 #endif
