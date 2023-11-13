@@ -20,12 +20,14 @@ std::string toHex(const std::string& value, bool upperCase) {
 int main() {
     std::ifstream file;
     std::string line;
+    int * calc[26] = {0};
 
     file.open("files/Dictionary.txt");
 
     while(getline(file, line)) {
         // std::cout << line << std::endl;
         std::string value = toHex(line, true);
+        *calc[line[0] - 'a']++;
         value = value.substr(0, value.length() - 2);
         std::stringstream strm;
         long output;
@@ -34,6 +36,10 @@ int main() {
 
         std::cout << output % 200 << std::endl;
         //TODO: Make formula for Hashing, check for collision
+    }
+
+    for(int i = 0; i < 26; i++) {
+        std::cout << "Numbers [" << i <<"]: " << calc[i] << std::endl;
     }
     return 0;
 }
