@@ -30,9 +30,10 @@ class HashObjects {
         std::string * getKeys() { return key; }
 
         void addWord(int hashLoc, std::string word) {
+            //TODO: Design a Flag for when reaching the end of a specified letter (second letter check [first if only 1 character long])
             while(true) {
                 if(hashLoc >= size)
-                    hashLoc -= size;
+                    hashLoc = 0;
 
                 if(key[hashLoc] != "") {
                     hashLoc++;
@@ -42,6 +43,8 @@ class HashObjects {
                 }
             }
         }
+
+        //TODO: Add Search function that returns the words similar to input. (Must create a flag in 'addWord' first)
 };
 
 class Hashtable {
@@ -66,7 +69,7 @@ class Hashtable {
 
         void addWord(std::string word) {
             int hashLoc = hashFunction(word[0]);
-            int hashLocInner = hashFunction(word.length() > 1 ? word[1] : word[0]);
+            int hashLocInner = hashFunction(word.length() > 1 && word[1] != ' ' ? word[0] : word[1]);
 
             //TODO: hashLocInner is giving a negative number (i is being treated as I).
 
