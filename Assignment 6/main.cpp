@@ -35,19 +35,9 @@ int main() {
     file.open("files/Dictionary.txt");
 
     while(getline(file, line)) {
-        // std::cout << line << std::endl;
-        // std::string value = toHex(line, true);
         std::transform(line.begin(), line.end(), line.begin(), ::tolower);
         calc[hashFunction(line[0])]++;
         words.push_back(line);
-        // value = value.substr(0, value.length() - 2);
-        // std::stringstream strm;
-        // long output;
-        // strm << value;
-        // strm >> std::hex >> output;
-
-        // std::cout << output % 200 << std::endl;
-        //TODO: Make formula for Hashing, check for collision
     }
 
     for(int i = 0; i < 26; i++) {
@@ -66,12 +56,31 @@ int main() {
     std::cin >> userWord;
     std::transform(userWord.begin(), userWord.end(), userWord.begin(), ::tolower);
 
-    std::cout << "Your Word: " << userWord << std::endl;
+    std::vector<std::string> collection = table->getWords(userWord);
+    std::string correct = table->getSuggestion(hashFunction(userWord[0]));
 
-    //TODO: If first letter does not have an array, return 'No Word'... exit program
-    //TODO: Else find all similar words based on second letter. If none, return 'did you mean?'
-    //TODO: - if yes then display words based on found (if exist, otherwise return 'none')
-    //TODO: - else return 'none'
+    if(collection.size() == 0) {
+        std::cout << "Possible misspell, did you mean?: " << table->getSuggestion(hashFunction(userWord[0])) << std::endl;
+        std::string answer;
+        std::cin >> answer;
+
+        if(answer == "yes") {
+            std::transform(correct.begin(), correct.end(), correct.begin(), ::tolower);
+            collection = table->getWords(correct);
+            
+            while(collection.size() > 0) {
+                std::cout << collection.back() << std::endl;
+                collection.pop_back();
+            }
+        } else
+            std::cout << "No words found." << std::endl;
+
+    } else {
+        while(collection.size() > 0) {
+            std::cout << collection.back() << std::endl;
+            collection.pop_back();
+        }
+    }
 
     return 0;
 }
