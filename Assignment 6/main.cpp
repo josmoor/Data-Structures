@@ -7,6 +7,8 @@
 #include<algorithm>
 #include<cctype>
 
+#include<bits/stdc++.h>
+
 #include "hash.h"
 
 // Variables
@@ -56,11 +58,15 @@ int main() {
     std::cin >> userWord;
     std::transform(userWord.begin(), userWord.end(), userWord.begin(), ::tolower);
 
+    short hashValue = hashFunction(userWord[0]);
+
     std::vector<std::string> collection = table->getWords(userWord);
+    std::vector<float> timeValues = table->getTime(hashValue);
     std::string correct = table->getSuggestion(hashFunction(userWord[0]));
+    std::string display;
 
     if(collection.size() == 0) {
-        std::cout << "Possible misspell, did you mean?: " << table->getSuggestion(hashFunction(userWord[0])) << std::endl;
+        std::cout << "Possible misspell, did you mean?: " << table->getSuggestion(hashValue) << std::endl;
         std::string answer;
         std::cin >> answer;
 
@@ -69,16 +75,28 @@ int main() {
             collection = table->getWords(correct);
             
             while(collection.size() > 0) {
-                std::cout << collection.back() << std::endl;
+                display = "Word: ";
+                display.append(collection.back());
+                std::cout << display << std::endl;
+                display.append(" | Time: ").append(std::to_string(timeValues.back()));
+                std::cout << display << std::endl;
                 collection.pop_back();
+                timeValues.pop_back();
             }
         } else
             std::cout << "No words found." << std::endl;
 
     } else {
+        std::cout << "TRUE" << std::endl;
+
         while(collection.size() > 0) {
-            std::cout << collection.back() << std::endl;
+            display = "Word: ";
+            display.append(collection.back());
+            std::cout << display << std::endl;
+            display.append(" | Time: ").append(std::to_string(timeValues.back()));
+            std::cout << display << std::endl;
             collection.pop_back();
+            timeValues.pop_back();
         }
     }
 

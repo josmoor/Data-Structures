@@ -5,6 +5,8 @@
 #include <fstream>
 #include<vector>
 
+#include "files/TimeInterval.h"
+
 class Hashtable;
 
 int hashFunction(char c) { return c - 'a'; }
@@ -13,6 +15,8 @@ class HashObjects {
     private:
         std::string * key;
         std::string suggestion;
+        std::vector<float> time;
+        TimeInterval ti;
         int size;
     public:
         HashObjects() { }
@@ -36,11 +40,16 @@ class HashObjects {
             suggestion = key[0];
 
             for(int i = 0; i < size; i++) {
+                ti = * new TimeInterval();
+                ti.start();
                 char keyChar = key[i].length() > 1 && key[i][1] != ' ' ? key[i][1] : key[i][0];
 
                 if(c == keyChar) {
                     ret.push_back(key[i]);
                 }
+
+                ti.stop();
+                time.push_back(ti.GetInterval());
             }
 
             return ret;
@@ -61,6 +70,8 @@ class HashObjects {
                 }
             }
         }
+
+        std::vector<float> getTime() { return time; }
 };
 
 class Hashtable {
@@ -95,6 +106,8 @@ class Hashtable {
         }
 
         std::string getSuggestion(int hashLoc) { return words[hashLoc].getSuggestion(); }
+
+        std::vector<float> getTime(int hashLoc) { return words[hashLoc].getTime(); }
 };
 
 #endif
